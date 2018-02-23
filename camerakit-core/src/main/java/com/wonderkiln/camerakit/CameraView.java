@@ -263,7 +263,10 @@ public class CameraView extends CameraViewLayout {
         sWorkerHandler.postDelayed(new Runnable() {
             @Override
             public void run() {
-                mCameraImpl.start();
+                // If started state changes in the 100ms this call is delayed for (???) then don't start
+                if (mIsStarted) {
+                    mCameraImpl.start();
+                }
             }
         }, 100);
     }
